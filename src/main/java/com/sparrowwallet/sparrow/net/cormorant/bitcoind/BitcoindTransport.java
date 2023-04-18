@@ -50,7 +50,7 @@ public class BitcoindTransport implements Transport {
             }
             this.bitcoindUrl = new URL(serverUrl + "/wallet/" + bitcoindWallet);
         } catch(MalformedURLException e) {
-            log.error("Malformed Bitcoin Core RPC URL", e);
+            log.error("Malformed Fujicoin Core RPC URL", e);
         }
     }
 
@@ -110,7 +110,7 @@ public class BitcoindTransport implements Transport {
     private String getBitcoindAuthEncoded() throws IOException {
         if(cookieFile != null) {
             if(!cookieFile.exists()) {
-                throw new IOException("Cannot find Bitcoin Core cookie file at " + cookieFile.getAbsolutePath());
+                throw new IOException("Cannot find Fujicoin Core cookie file at " + cookieFile.getAbsolutePath());
             }
 
             if(cookieFileTimestamp == null || cookieFile.lastModified() != cookieFileTimestamp) {
@@ -119,7 +119,7 @@ public class BitcoindTransport implements Transport {
                     bitcoindAuthEncoded = Base64.getEncoder().encodeToString(userPass.getBytes(StandardCharsets.UTF_8));
                     cookieFileTimestamp = cookieFile.lastModified();
                 } catch(Exception e) {
-                    log.warn("Cannot read Bitcoin Core .cookie file", e);
+                    log.warn("Cannot read Fujicoin Core .cookie file", e);
                 }
             }
         }

@@ -266,7 +266,7 @@ public class ServerPreferencesController extends PreferencesDetailController {
             Stage window = new Stage();
 
             DirectoryChooser directorChooser = new DirectoryChooser();
-            directorChooser.setTitle("Select Bitcoin Core Data Directory");
+            directorChooser.setTitle("Select Fujicoin Core Data Directory");
             directorChooser.setInitialDirectory(config.getCoreDataDir() != null ? config.getCoreDataDir() : new File(System.getProperty("user.home")));
 
             File dataDir = directorChooser.showDialog(window);
@@ -642,7 +642,7 @@ public class ServerPreferencesController extends PreferencesDetailController {
             reason = tlsServerException.getMessage() + "\n\n" + reason;
         } else if(exception instanceof ProxyServerException) {
             reason += ". Check if the proxy server is running.";
-        } else if(reason != null && (reason.contains("Check if Bitcoin Core is running") || reason.contains("Could not connect to Bitcoin Core RPC"))) {
+        } else if(reason != null && (reason.contains("Check if Fujicoin Core is running") || reason.contains("Could not connect to Fujicoin Core RPC"))) {
             reason += "\n\nSee https://sparrowwallet.com/docs/connect-node.html";
         } else if(reason != null && (reason.startsWith("Cannot connect to hidden service"))) {
             reason += " on the server. Check that the onion address and port are correct, and that both Tor and the Electrum server are running on the node. Usually SSL is not enabled, and the port is 50001.";
@@ -864,11 +864,11 @@ public class ServerPreferencesController extends PreferencesDetailController {
     private File getDefaultCoreDataDir() {
         org.controlsfx.tools.Platform platform = org.controlsfx.tools.Platform.getCurrent();
         if(platform == org.controlsfx.tools.Platform.OSX) {
-            return new File(System.getProperty("user.home") + "/Library/Application Support/Bitcoin");
+            return new File(System.getProperty("user.home") + "/Library/Application Support/Fujicoin");
         } else if(platform == org.controlsfx.tools.Platform.WINDOWS) {
-            return new File(System.getenv("APPDATA") + "/Bitcoin");
+            return new File(System.getenv("APPDATA") + "/Fujicoin");
         } else {
-            return new File(System.getProperty("user.home") + "/.bitcoin");
+            return new File(System.getProperty("user.home") + "/.fujicoin");
         }
     }
 
@@ -894,7 +894,7 @@ public class ServerPreferencesController extends PreferencesDetailController {
         editConnection.setDisable(false);
         if(connectionService != null && connectionService.isRunning() && event.getProgress() < 100) {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-            testResults.appendText("\nThe connection to the Bitcoin Core node was successful, but it is still syncing and cannot be used yet.");
+            testResults.appendText("\nThe connection to the Fujicoin Core node was successful, but it is still syncing and cannot be used yet.");
             testResults.appendText("\nCurrently " + event.getProgress() + "% completed to date " + dateFormat.format(event.getTip()));
             testConnection.setGraphic(getGlyph(FontAwesome5.Glyph.QUESTION_CIRCLE, null));
             connectionService.cancel();
@@ -916,7 +916,7 @@ public class ServerPreferencesController extends PreferencesDetailController {
         editConnection.setDisable(false);
         if(connectionService != null && connectionService.isRunning() && event.getProgress() < 100) {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-            testResults.appendText("\nThe connection to the Bitcoin Core node was successful, but it is still syncing and cannot be used yet.");
+            testResults.appendText("\nThe connection to the Fujicoin Core node was successful, but it is still syncing and cannot be used yet.");
             testResults.appendText("\nCurrently " + event.getProgress() + "% completed to date " + dateFormat.format(event.getTip()));
             testConnection.setGraphic(getGlyph(FontAwesome5.Glyph.QUESTION_CIRCLE, null));
             connectionService.cancel();

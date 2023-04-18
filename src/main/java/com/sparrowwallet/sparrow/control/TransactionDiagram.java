@@ -1328,7 +1328,7 @@ public class TransactionDiagram extends GridPane {
                 content.putString(Long.toString(value));
                 Clipboard.getSystemClipboard().setContent(content);
             });
-            MenuItem copyBtcValue = new MenuItem("Copy Value in BTC");
+            MenuItem copyBtcValue = new MenuItem("Copy Value in FJC");
             copyBtcValue.setOnAction(event -> {
                 hide();
                 ClipboardContent content = new ClipboardContent();

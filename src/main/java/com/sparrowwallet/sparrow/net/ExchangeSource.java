@@ -49,7 +49,7 @@ public enum ExchangeSource {
         }
 
         private CoinbaseRates getRates() {
-            String url = "https://api.coinbase.com/v2/exchange-rates?currency=BTC";
+            String url = "https://api.coinbase.com/v2/exchange-rates?currency=FJC";
             Proxy proxy = AppServices.getProxy();
 
             if(log.isInfoEnabled()) {

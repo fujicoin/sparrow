@@ -22,26 +22,23 @@ public enum FeeRatesSource {
             return Collections.emptyMap();
         }
     },
-    MEMPOOL_SPACE("mempool.space") {
-        @Override
-        public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
-            String url = AppServices.isUsingProxy() ? "http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion/api/v1/fees/recommended" : "https://mempool.space/api/v1/fees/recommended";
-            return getThreeTierFeeRates(defaultblockTargetFeeRates, url);
-        }
-    },
-    BITCOINFEES_EARN_COM("bitcoinfees.earn.com") {
-        @Override
-        public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
-            String url = "https://bitcoinfees.earn.com/api/v1/fees/recommended";
-            return getThreeTierFeeRates(defaultblockTargetFeeRates, url);
-        }
-    },
-    MINIMUM("Minimum (1 sat/vB)") {
+    MEDIUM("Medium (20000 sat/vB)") {
         @Override
         public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
             Map<Integer, Double> blockTargetFeeRates = new LinkedHashMap<>();
             for(Integer blockTarget : defaultblockTargetFeeRates.keySet()) {
-                blockTargetFeeRates.put(blockTarget, 1.0);
+                blockTargetFeeRates.put(blockTarget, 20000.0);
+            }
+
+            return blockTargetFeeRates;
+        }
+    },
+    MINIMUM("Minimum (10000 sat/vB)") {
+        @Override
+        public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
+            Map<Integer, Double> blockTargetFeeRates = new LinkedHashMap<>();
+            for(Integer blockTarget : defaultblockTargetFeeRates.keySet()) {
+                blockTargetFeeRates.put(blockTarget, 10000.0);
             }
 
             return blockTargetFeeRates;

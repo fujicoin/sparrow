@@ -818,12 +818,12 @@ public class SendController extends WalletFormController implements Initializabl
     }
 
     private Double getFeeRangeRate() {
-        return Math.pow(2.0, feeRange.getValue());
+        return Math.pow(2.0, feeRange.getValue()) * 10000.0 ;
     }
 
     private void setFeeRangeRate(Double feeRate) {
         feeRange.valueProperty().removeListener(feeRangeListener);
-        feeRange.setValue(Math.log(feeRate) / Math.log(2));
+        feeRange.setValue(Math.log(feeRate / 10000.0) / Math.log(2));
         feeRange.valueProperty().addListener(feeRangeListener);
     }
 

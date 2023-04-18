@@ -87,9 +87,9 @@
                     <RegistryValue Type="string" Value="&quot;[INSTALLDIR]$(var.JpAppName).exe&quot; &quot;%1&quot;" />
                 </RegistryKey>
             </RegistryKey>
-            <RegistryKey Root="HKCR" Key="bitcoin" Action="createAndRemoveOnUninstall">
+            <RegistryKey Root="HKCR" Key="fujicoin" Action="createAndRemoveOnUninstall">
                 <RegistryValue Type="string" Name="URL Protocol" Value=""/>
-                <RegistryValue Type="string" Value="URL:Bitcoin Payment URL"/>
+                <RegistryValue Type="string" Value="URL:Fujicoin Payment URL"/>
                 <RegistryKey Key="DefaultIcon">
                     <RegistryValue Type="string" Value="$(var.JpAppName).exe" />
                 </RegistryKey>

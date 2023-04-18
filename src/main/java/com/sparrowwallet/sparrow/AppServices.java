@@ -82,9 +82,9 @@ public class AppServices {
     private static final Currency DEFAULT_FIAT_CURRENCY = Currency.getInstance("USD");
     private static final String TOR_DEFAULT_PROXY_CIRCUIT_ID = "default";
 
-    public static final List<Integer> TARGET_BLOCKS_RANGE = List.of(1, 2, 3, 4, 5, 10, 25, 50);
+    public static final List<Integer> TARGET_BLOCKS_RANGE = List.of(1, 2, 3, 4, 5);
     public static final List<Long> FEE_RATES_RANGE = List.of(1L, 2L, 4L, 8L, 16L, 32L, 64L, 128L, 256L, 512L, 1024L);
-    public static final double FALLBACK_FEE_RATE = 20000d / 1000;
+    public static final double FALLBACK_FEE_RATE = 20000000d / 1000;
 
     private static AppServices INSTANCE;
 
@@ -797,7 +797,7 @@ public class AppServices {
             return;
         }
 
-        Server blockExplorer = Config.get().getBlockExplorer() == null ? BlockExplorer.MEMPOOL_SPACE.getServer() : Config.get().getBlockExplorer();
+        Server blockExplorer = Config.get().getBlockExplorer() == null ? BlockExplorer.EXPLORER_FUJICOIN_ORG.getServer() : Config.get().getBlockExplorer();
         String url = blockExplorer.getUrl();
         if(url.contains("{0}")) {
             url = url.replace("{0}", txid);
@@ -863,7 +863,7 @@ public class AppServices {
 
     private static void openURI(URI uri) {
         Platform.runLater(() -> {
-            if("bitcoin".equals(uri.getScheme())) {
+            if("fujicoin".equals(uri.getScheme())) {
                 openBitcoinUri(uri);
             } else if(("auth47").equals(uri.getScheme())) {
                 openAuth47Uri(uri);
@@ -901,7 +901,7 @@ public class AppServices {
                 Platform.runLater(() -> EventManager.get().post(new SendPaymentsEvent(sendingWallet, List.of(bitcoinURI.toPayment()))));
             }
         } catch(Exception e) {
-            showErrorDialog("Not a valid bitcoin URI", e.getMessage());
+            showErrorDialog("Not a valid fujicoin URI", e.getMessage());
         }
     }
 

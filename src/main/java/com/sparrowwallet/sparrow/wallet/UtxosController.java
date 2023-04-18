@@ -229,8 +229,8 @@ public class UtxosController extends WalletFormController implements Initializab
             }
 
             if(unit.equals(BitcoinUnit.BTC)) {
-                sendSelected.setText("Send Selected (" + format.formatBtcValue(selectedTotal) + " BTC)");
-                mixSelected.setText("Mix Selected (" + format.formatBtcValue(selectedTotal) + " BTC)");
+                sendSelected.setText("Send Selected (" + format.formatBtcValue(selectedTotal) + " FJC)");
+                mixSelected.setText("Mix Selected (" + format.formatBtcValue(selectedTotal) + " FJC)");
             } else {
                 sendSelected.setText("Send Selected (" + format.formatSatsValue(selectedTotal) + " sats)");
                 mixSelected.setText("Mix Selected (" + format.formatSatsValue(selectedTotal) + " sats)");

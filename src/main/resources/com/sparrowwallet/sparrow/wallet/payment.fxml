@@ -35,7 +35,7 @@
                     <ComboBox fx:id="openWallets" />
                     <ComboBoxTextField fx:id="address" styleClass="address-text-field" comboProperty="$openWallets">
                         <tooltip>
-                            <Tooltip text="Address, payment code or bitcoin: URI"/>
+                            <Tooltip text="Address, payment code or fujicoin: URI"/>
                         </tooltip>
                     </ComboBoxTextField>
                 </StackPane>
@@ -70,7 +70,7 @@
                     </Label>
                     <Label fx:id="dustStatus" text="Amount too low">
                         <tooltip>
-                            <Tooltip text="Amount below the Bitcoin network dust threshold for this address type" />
+                            <Tooltip text="Amount below the Fujicoin network dust threshold for this address type" />
                         </tooltip>
                         <graphic>
                             <Glyph fontFamily="Font Awesome 5 Free Solid" fontSize="12" icon="EXCLAMATION_CIRCLE" styleClass="failure" />

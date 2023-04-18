@@ -92,7 +92,7 @@ public class BitcoindClient {
     public void initialize() throws CormorantBitcoindException {
         networkInfo = getBitcoindService().getNetworkInfo();
         if(networkInfo.version() < 240000) {
-            throw new CormorantBitcoindException("Bitcoin Core versions older than v24 are not supported");
+            throw new CormorantBitcoindException("Fujicoin Core versions older than v24 are not supported");
         }
 
         BlockchainInfo blockchainInfo = getBitcoindService().getBlockchainInfo();
@@ -126,7 +126,7 @@ public class BitcoindClient {
 
         ListWalletDirResult listWalletDirResult = getBitcoindService().listWalletDir();
         if(listWalletDirResult == null) {
-            throw new RuntimeException("Wallet support must be enabled in Bitcoin Core");
+            throw new RuntimeException("Wallet support must be enabled in Fujicoin Core");
         }
         boolean exists = listWalletDirResult.wallets().stream().anyMatch(walletDirResult -> walletDirResult.name().equals(CORE_WALLET_NAME));
         legacyWalletExists = listWalletDirResult.wallets().stream().anyMatch(walletDirResult -> walletDirResult.name().equals(Bwt.DEFAULT_CORE_WALLET));
@@ -159,7 +159,7 @@ public class BitcoindClient {
                     .sorted(Comparator.comparingLong(o -> o.getBirthDate().getTime())).collect(Collectors.toList());
             if(!prePruneWallets.isEmpty()) {
                 pruneWarnedDescriptors.add(e.getDescriptor());
-                Platform.runLater(() -> EventManager.get().post(new CormorantPruneStatusEvent("Error: Wallet birthday earlier than Bitcoin Core prune date", prePruneWallets.get(0), e.getRescanSince(), e.getPrunedDate(), legacyWalletExists)));
+                Platform.runLater(() -> EventManager.get().post(new CormorantPruneStatusEvent("Error: Wallet birthday earlier than Fujicoin Core prune date", prePruneWallets.get(0), e.getRescanSince(), e.getPrunedDate(), legacyWalletExists)));
             }
             throw new ImportFailedException("Wallet birthday earlier than prune date");
         }
@@ -591,7 +591,7 @@ public class BitcoindClient {
                 }
             } catch(Exception e) {
                 lastPollException = e;
-                log.warn("Error polling Bitcoin Core: " + e.getMessage());
+                log.warn("Error polling Fujicoin Core: " + e.getMessage());
 
                 if(syncing) {
                     syncingLock.lock();

@@ -59,7 +59,7 @@ public class NewWalletTransactionsEvent {
         }
 
         if(unit == BitcoinUnit.BTC) {
-            return format.formatBtcValue(value) + " BTC";
+            return format.formatBtcValue(value) + " FJC";
         }
 
         return format.formatSatsValue(value) + " sats";
