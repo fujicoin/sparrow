@@ -75,7 +75,7 @@ public class AppServices {
     private static final int PUBLIC_SERVER_RETRY_PERIOD_SECS = 3;
     private static final int PRIVATE_SERVER_RETRY_PERIOD_SECS = 15;
     public static final int ENUMERATE_HW_PERIOD_SECS = 30;
-    private static final int RATES_PERIOD_SECS = 5 * 60;
+    private static final int RATES_PERIOD_SECS = 30 * 60;
     private static final int VERSION_CHECK_PERIOD_HOURS = 24;
     private static final int CONNECTION_DELAY_SECS = 2;
     private static final ExchangeSource DEFAULT_EXCHANGE_SOURCE = ExchangeSource.COINGECKO;

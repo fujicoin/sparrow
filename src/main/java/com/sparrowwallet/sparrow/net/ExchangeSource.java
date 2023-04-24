@@ -1,6 +1,7 @@
 package com.sparrowwallet.sparrow.net;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sparrowwallet.sparrow.AppServices;
 import com.sparrowwallet.sparrow.event.ExchangeRatesUpdatedEvent;
 import javafx.concurrent.ScheduledService;
@@ -79,12 +80,8 @@ public enum ExchangeSource {
         @Override
         public Double getExchangeRate(Currency currency) {
             String currencyCode = currency.getCurrencyCode();
-            OptionalDouble optRate = getRates().rates.entrySet().stream().filter(rate -> currencyCode.equalsIgnoreCase(rate.getKey())).mapToDouble(rate -> rate.getValue().value).findFirst();
-            if(optRate.isPresent()) {
-                return optRate.getAsDouble();
-            }
-
-            return null;
+            Double optRate = getRate(currencyCode);
+            return optRate;
         }
 
         private CoinGeckoRates getRates() {
@@ -105,6 +102,29 @@ public enum ExchangeSource {
                     log.warn("Error retrieving currency rates (" + e.getMessage() + ")");
                 }
                 return new CoinGeckoRates();
+            }
+        }
+
+        private Double getRate(String currencyCode) {
+            String url = "https://api.coingecko.com/api/v3/simple/price?ids=fujicoin&vs_currencies=" + currencyCode;
+            Proxy proxy = AppServices.getProxy();
+
+            if(log.isInfoEnabled()) {
+                log.info("Requesting exchange rates from " + url);
+            }
+
+            try(InputStream is = (proxy == null ? new URL(url).openStream() : new URL(url).openConnection(proxy).getInputStream()); Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+                Gson gson = new Gson();
+                JsonObject jsonObj = (JsonObject) gson.fromJson(reader, JsonObject.class);
+                Double rate = jsonObj.get("fujicoin").getAsJsonObject().get(currencyCode.toLowerCase()).getAsDouble();
+                return rate;
+            } catch(Exception e) {
+                if(log.isDebugEnabled()) {
+                    log.warn("Error retrieving currency rates", e);
+                } else {
+                    log.warn("Error retrieving currency rates (" + e.getMessage() + ")");
+                }
+                return null;
             }
         }
     };
