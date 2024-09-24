@@ -32,7 +32,7 @@ public class Bip129 implements KeystoreFileExport, KeystoreFileImport, WalletExp
 
     @Override
     public String getKeystoreExportDescription() {
-        return "Exports the keystore in the Bitcoin Secure Multisig Setup (BSMS) format.";
+        return "Exports the keystore in the Fujicoin Secure Multisig Setup (FSMS) format.";
     }
 
     @Override
@@ -180,7 +180,7 @@ public class Bip129 implements KeystoreFileExport, KeystoreFileImport, WalletExp
 
     @Override
     public String getKeystoreImportDescription(int account) {
-        return "Imports a keystore that was exported using the Bitcoin Secure Multisig Setup (BSMS) format.";
+        return "Imports a keystore that was exported using the Fujicoin Secure Multisig Setup (FSMS) format.";
     }
 
     @Override
@@ -203,7 +203,7 @@ public class Bip129 implements KeystoreFileExport, KeystoreFileImport, WalletExp
 
     @Override
     public String getWalletExportDescription() {
-        return "Exports a multisig wallet in the Bitcoin Secure Multisig Setup (BSMS) format for import by other signers in the quorum.";
+        return "Exports a multisig wallet in the Fujicoin Secure Multisig Setup (FSMS) format for import by other signers in the quorum.";
     }
 
     @Override
@@ -223,7 +223,7 @@ public class Bip129 implements KeystoreFileExport, KeystoreFileImport, WalletExp
 
     @Override
     public String getWalletImportDescription() {
-        return "Imports a multisig wallet in the Bitcoin Secure Multisig Setup (BSMS) format that has been created by another signer in the quorum.";
+        return "Imports a multisig wallet in the Fujicoin Secure Multisig Setup (FSMS) format that has been created by another signer in the quorum.";
     }
 
     @Override

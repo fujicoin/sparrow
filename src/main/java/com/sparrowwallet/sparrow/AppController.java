@@ -510,21 +510,11 @@ public class AppController implements Initializable {
     }
 
     public void openSupport(ActionEvent event) {
-        AppServices.get().getApplication().getHostServices().showDocument("https://sparrowwallet.com/opensupport");
+        AppServices.get().getApplication().getHostServices().showDocument("https://discord.gg/rXeBn99");
     }
 
     public void submitBugReport(ActionEvent event) {
-        ButtonType supportType = new ButtonType("Get Support", ButtonBar.ButtonData.LEFT);
-        ButtonType bugType = new ButtonType("Submit Bug Report", ButtonBar.ButtonData.YES);
-        Optional<ButtonType> optResponse = showWarningDialog("Submit Bug Report", "Please note that this facility is for bug reports and feature requests only. There is a community of Sparrow users who can assist with support requests.", supportType, bugType);
-
-        if(optResponse.isPresent()) {
-            if(optResponse.get() == bugType) {
-                AppServices.get().getApplication().getHostServices().showDocument("https://sparrowwallet.com/submitbugreport");
-            } else {
-                openSupport(event);
-            }
-        }
+        AppServices.get().getApplication().getHostServices().showDocument("https://github.com/fujicoin/sparrow/issues");
     }
 
     public void showAbout(ActionEvent event) {
@@ -1054,7 +1044,7 @@ public class AppController implements Initializable {
     private String getServerToggleTooltipText(Integer currentBlockHeight) {
         if(AppServices.isConnected()) {
             return "Connected to " + Config.get().getServerDisplayName() + (currentBlockHeight != null ? " at height " + currentBlockHeight : "") +
-                    (Config.get().getServerType() == ServerType.PUBLIC_ELECTRUM_SERVER ? "\nWarning! You are connected to a public server and sharing your transaction data with it.\nFor better privacy, consider using your own Bitcoin Core node or private Electrum server." : "");
+                    (Config.get().getServerType() == ServerType.PUBLIC_ELECTRUM_SERVER ? "\nWarning! You are connected to a public server and sharing your transaction data with it.\nFor better privacy, consider using your own Fujicoin Core node or private Electrum server." : "");
         } else if(AppServices.isConnecting()) {
             return "Connecting...";
         }
@@ -2874,16 +2864,16 @@ public class AppController implements Initializable {
     @Subscribe
     public void cormorantPruneStatus(CormorantPruneStatusEvent event) {
         if(event.legacyWalletExists()) {
-            Optional<ButtonType> optButtonType = AppServices.showErrorDialog("Error importing Bitcoin Core descriptor wallet",
+            Optional<ButtonType> optButtonType = AppServices.showErrorDialog("Error importing Fujicoin Core descriptor wallet",
                     "The connected node is pruned at " + event.getPruneDateAsString() + ", but the wallet birthday for " + event.getWallet().getFullDisplayName() + " is set to " + event.getScanDateAsString() + ".\n\n" +
-                            "Do you want to try using the existing legacy Bitcoin Core wallet?", ButtonType.YES, ButtonType.NO);
+                            "Do you want to try using the existing legacy Fujicoin Core wallet?", ButtonType.YES, ButtonType.NO);
             if(optButtonType.isPresent() && optButtonType.get() == ButtonType.YES) {
                 Config.get().setUseLegacyCoreWallet(true);
                 onlineProperty().set(false);
                 Platform.runLater(() -> onlineProperty().set(true));
             }
         } else {
-            AppServices.showErrorDialog("Error importing Bitcoin Core descriptor wallet",
+            AppServices.showErrorDialog("Error importing Fujicoin Core descriptor wallet",
                     "The connected node is pruned at " + event.getPruneDateAsString() + ", but the wallet birthday for " + event.getWallet().getFullDisplayName() + " is set to " + event.getScanDateAsString() + ".");
         }
     }

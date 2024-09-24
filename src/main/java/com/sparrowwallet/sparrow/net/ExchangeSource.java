@@ -18,6 +18,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public enum ExchangeSource {
     NONE("None") {
         @Override
@@ -129,12 +132,7 @@ public enum ExchangeSource {
         @Override
         public Double getExchangeRate(Currency currency) {
             String currencyCode = currency.getCurrencyCode();
-            OptionalDouble optRate = getRates().rates.entrySet().stream().filter(rate -> currencyCode.equalsIgnoreCase(rate.getKey())).mapToDouble(rate -> rate.getValue().value).findFirst();
-            if(optRate.isPresent()) {
-                return optRate.getAsDouble();
-            }
-
-            return null;
+            return getFujicoinRates(currencyCode);
         }
 
         private CoinGeckoRates getRates() {
@@ -154,6 +152,29 @@ public enum ExchangeSource {
                     log.warn("Error retrieving currency rates (" + e.getMessage() + ")");
                 }
                 return new CoinGeckoRates();
+            }
+        }
+
+        private Double getFujicoinRates(String currencyCode) {
+            String url = "https://api.coingecko.com/api/v3/simple/price?ids=fujicoin&vs_currencies=" + currencyCode;
+
+            if(log.isInfoEnabled()) {
+                log.info("Requesting exchange rates from " + url);
+            }
+
+            HttpClientService httpClientService = AppServices.getHttpClientService();
+            try {
+                String json = httpClientService.requestJson(url, String.class, null);
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(json);
+                return root.get("fujicoin").get(currencyCode.toLowerCase()).asDouble();
+            } catch(Exception e) {
+                if(log.isDebugEnabled()) {
+                    log.warn("Error retrieving currency rates", e);
+                } else {
+                    log.warn("Error retrieving currency rates (" + e.getMessage() + ")");
+                }
+                return null;
             }
         }
 

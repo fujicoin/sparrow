@@ -62,11 +62,11 @@ public class FeeRangeSlider extends Slider {
     }
 
     public double getFeeRate() {
-        return Math.pow(2.0, getValue());
+        return Math.pow(2.0, getValue()) * 10000.0 ;
     }
 
     public void setFeeRate(double feeRate) {
-        double value = Math.log(feeRate) / Math.log(2);
+        double value = Math.log(feeRate / 10000.0) / Math.log(2);
         updateMaxFeeRange(value);
         setValue(value);
     }

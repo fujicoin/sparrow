@@ -119,7 +119,7 @@ public class Bwt {
      */
     private void start(Collection<String> outputDescriptors, Collection<String> addresses, Integer rescanSince, Boolean forceRescan, Integer gapLimit, CallbackNotifier callback) {
         BwtConfig bwtConfig = new BwtConfig();
-        bwtConfig.network = Network.get() == Network.MAINNET ? "bitcoin" : Network.getCanonical().getName();
+        bwtConfig.network = Network.get() == Network.MAINNET ? "fujicoin" : Network.getCanonical().getName();
 
         if(!outputDescriptors.isEmpty()) {
             bwtConfig.descriptors = outputDescriptors;
@@ -228,25 +228,25 @@ public class Bwt {
         @SerializedName("network")
         public String network;
 
-        @SerializedName("bitcoind_url")
+        @SerializedName("fujicoind_url")
         public String bitcoindUrl;
 
-        @SerializedName("bitcoind_auth")
+        @SerializedName("fujicoind_auth")
         public String bitcoindAuth;
 
-        @SerializedName("bitcoind_dir")
+        @SerializedName("fujicoind_dir")
         public String bitcoindDir;
 
-        @SerializedName("bitcoind_cookie")
+        @SerializedName("fujicoind_cookie")
         public String bitcoindCookie;
 
-        @SerializedName("bitcoind_wallet")
+        @SerializedName("fujicoind_wallet")
         public String bitcoindWallet;
 
-        @SerializedName("bitcoind_proxy")
+        @SerializedName("fujicoind_proxy")
         public String bitcoindProxy;
 
-        @SerializedName("bitcoind_timeout")
+        @SerializedName("fujicoind_timeout")
         public Integer bitcoindTimeout;
 
         @SerializedName("create_wallet_if_missing")
@@ -313,7 +313,7 @@ public class Bwt {
                                 Bwt.this.shutdown();
                                 terminating = false;
                             } else {
-                                Platform.runLater(() -> EventManager.get().post(new BwtBootStatusEvent("Connecting to Bitcoin Core node " + Config.get().getServerDisplayName() + "...")));
+                                Platform.runLater(() -> EventManager.get().post(new BwtBootStatusEvent("Connecting to Fujicoin Core node " + Config.get().getServerDisplayName() + "...")));
                             }
                         }
 
@@ -364,7 +364,7 @@ public class Bwt {
                         Bwt.this.start(notifier);
                     } else {
                         if(AppServices.get().getOpenWallets().keySet().stream().anyMatch(wallet -> wallet.getScriptType() == ScriptType.P2TR)) {
-                            throw new IllegalStateException("Upgrade Bitcoin Core to v24 or later for Taproot wallet support");
+                            throw new IllegalStateException("Upgrade Fujicoin Core to v24 or later for Taproot wallet support");
                         }
 
                         Bwt.this.start(AppServices.get().getOpenWallets().keySet(), notifier);

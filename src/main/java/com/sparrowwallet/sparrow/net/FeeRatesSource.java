@@ -15,45 +15,26 @@ public enum FeeRatesSource {
             return Collections.emptyMap();
         }
     },
-    MEMPOOL_SPACE("mempool.space", true) {
-        @Override
-        public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
-            String url = AppServices.isUsingProxy() ? "http://mempoolhqx4isw62xs7abwphsq7ldayuidyx2v2oethdhhj6mlo2r6ad.onion/api/v1/fees/recommended" : "https://mempool.space/api/v1/fees/recommended";
-            return getThreeTierFeeRates(this, defaultblockTargetFeeRates, url);
-        }
-    },
-    BITCOINFEES_EARN_COM("bitcoinfees.earn.com", true) {
-        @Override
-        public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
-            String url = "https://bitcoinfees.earn.com/api/v1/fees/recommended";
-            return getThreeTierFeeRates(this, defaultblockTargetFeeRates, url);
-        }
-    },
-    MINIMUM("Minimum (1 sat/vB)", false) {
+    MEDIUM("Medium (20000 sat/vB)", true) {
         @Override
         public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
             Map<Integer, Double> blockTargetFeeRates = new LinkedHashMap<>();
             for(Integer blockTarget : defaultblockTargetFeeRates.keySet()) {
-                blockTargetFeeRates.put(blockTarget, 1.0);
+                blockTargetFeeRates.put(blockTarget, 20000.0);
             }
 
             return blockTargetFeeRates;
         }
     },
-    OXT_ME("oxt.me", true) {
+    MINIMUM("Minimum (10000 sat/vB)", false) {
         @Override
         public Map<Integer, Double> getBlockTargetFeeRates(Map<Integer, Double> defaultblockTargetFeeRates) {
-            String url = AppServices.isUsingProxy() ? "http://oxtwshnfyktikbflierkwcxxksbonl6v73l5so5zky7ur72w52tktkid.onion/stats/global/mempool" : "https://api.oxt.me/stats/global/mempool";
-            return getThreeTierFeeRates(this, defaultblockTargetFeeRates, url);
-        }
-
-        @Override
-        protected ThreeTierRates getThreeTierRates(String url, HttpClientService httpClientService) throws Exception {
-            OxtRates oxtRates = httpClientService.requestJson(url, OxtRates.class, null);
-            if(oxtRates.data == null || oxtRates.data.length < 1) {
-                throw new Exception("Invalid response from " + url);
+            Map<Integer, Double> blockTargetFeeRates = new LinkedHashMap<>();
+            for(Integer blockTarget : defaultblockTargetFeeRates.keySet()) {
+                blockTargetFeeRates.put(blockTarget, 10000.0);
             }
-            return oxtRates.data[0].getThreeTierRates();
+
+            return blockTargetFeeRates;
         }
     };
 

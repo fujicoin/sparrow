@@ -3,8 +3,8 @@ package com.sparrowwallet.sparrow.net;
 import com.sparrowwallet.sparrow.io.Server;
 
 public enum BlockExplorer {
-    MEMPOOL_SPACE("https://mempool.space"),
-    BLOCKSTREAM_INFO("https://blockstream.info"),
+    EXPLORER_FUJICOIN_ORG("https://explorer.fujicoin.org"),
+    EXPLORER2_FUJICOIN_ORG("https://explorer2.fujicoin.org"),
     NONE("http://none");
 
     private final Server server;

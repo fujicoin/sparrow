@@ -83,14 +83,6 @@ public class VersionCheckService extends ScheduledService<VersionUpdatedEvent> {
     }
 
     private boolean isNewer(VersionCheck versionCheck) {
-        try {
-            Version versionCheckVersion = new Version(versionCheck.version);
-            Version currentVersion = new Version(SparrowWallet.APP_VERSION);
-            return versionCheckVersion.compareTo(currentVersion) > 0;
-        } catch(IllegalArgumentException e) {
-            log.error("Invalid versions to compare: " + versionCheck.version + " to " + SparrowWallet.APP_VERSION, e);
-        }
-
         return false;
     }
 

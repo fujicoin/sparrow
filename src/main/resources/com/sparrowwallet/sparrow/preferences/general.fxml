@@ -29,14 +29,13 @@
     </rowConstraints>
 
     <Form GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <Fieldset inputGrow="SOMETIMES" text="Bitcoin" styleClass="wideLabelFieldSet">
+        <Fieldset inputGrow="SOMETIMES" text="Fujicoin" styleClass="wideLabelFieldSet">
             <Field text="Fee rates source:">
                 <ComboBox fx:id="feeRatesSource">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <FeeRatesSource fx:constant="ELECTRUM_SERVER" />
-                            <FeeRatesSource fx:constant="MEMPOOL_SPACE" />
-                            <FeeRatesSource fx:constant="MINIMUM" />
+                            <FeeRatesSource fx:constant="MEDIUM" />
                         </FXCollections>
                     </items>
                 </ComboBox>

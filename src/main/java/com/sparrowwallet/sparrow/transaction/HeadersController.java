@@ -1133,7 +1133,7 @@ public class HeadersController extends TransactionFormController implements Init
 
         if(fee.getValue() > 0) {
             double feeRateAmt = fee.getValue() / headersForm.getTransaction().getVirtualSize();
-            if(feeRateAmt > AppServices.LONG_FEE_RATES_RANGE.get(AppServices.LONG_FEE_RATES_RANGE.size() - 1)) {
+            if(feeRateAmt > 1000000.0d) {
                 Optional<ButtonType> optType = AppServices.showWarningDialog("Very high fee rate!",
                         "This transaction pays a very high fee rate of " + String.format("%.0f", feeRateAmt) + " sats/vB.\n\nBroadcast this transaction?", ButtonType.YES, ButtonType.NO);
                 if(optType.isPresent() && optType.get() == ButtonType.NO) {

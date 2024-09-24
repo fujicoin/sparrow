@@ -341,7 +341,7 @@ public class EntryCell extends TreeTableCell<Entry, Entry> implements Confirmati
 
     private static Double getMaxFeeRate() {
         if(AppServices.getTargetBlockFeeRates() == null || AppServices.getTargetBlockFeeRates().isEmpty()) {
-            return 100.0;
+            return 1000000.0;
         }
 
         return AppServices.getTargetBlockFeeRates().values().iterator().next();

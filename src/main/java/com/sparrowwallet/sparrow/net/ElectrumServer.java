@@ -84,7 +84,7 @@ public class ElectrumServer {
                     proxyServer = Config.get().getProxyServer();
                 } else if(Config.get().getServerType() == ServerType.BITCOIN_CORE) {
                     if(coreElectrumServer == null) {
-                        throw new ServerConfigException("Could not connect to Bitcoin Core RPC");
+                        throw new ServerConfigException("Could not connect to Fujicoin Core RPC");
                     }
                     electrumServer = coreElectrumServer;
                     if(previousServer != null && previousServer.getUrl().contains(CORE_ELECTRUM_HOST)) {
@@ -816,7 +816,7 @@ public class ElectrumServer {
         Map<Integer, Double> targetBlocksFeeRatesSats = getDefaultFeeEstimates(targetBlocks);
 
         FeeRatesSource feeRatesSource = Config.get().getFeeRatesSource();
-        feeRatesSource = (feeRatesSource == null ? FeeRatesSource.MEMPOOL_SPACE : feeRatesSource);
+        feeRatesSource = (feeRatesSource == null ? FeeRatesSource.MEDIUM : feeRatesSource);
         if(!feeRatesSource.isExternal()) {
             targetBlocksFeeRatesSats.putAll(feeRatesSource.getBlockTargetFeeRates(targetBlocksFeeRatesSats));
         } else if(useCached) {
@@ -838,7 +838,7 @@ public class ElectrumServer {
             for(Integer target : targetBlocksFeeRatesBtcKb.keySet()) {
                 long minFeeRateSatsKb = (long)(targetBlocksFeeRatesBtcKb.get(target) * Transaction.SATOSHIS_PER_BITCOIN);
                 if(minFeeRateSatsKb < 0) {
-                    minFeeRateSatsKb = 1000;
+                    minFeeRateSatsKb = 10000000;
                 }
                 targetBlocksFeeRatesSats.put(target, minFeeRateSatsKb / 1000d);
             }
@@ -1156,19 +1156,19 @@ public class ElectrumServer {
                                         if(bwtStartException != null) {
                                             Matcher walletLoadingMatcher = RPC_WALLET_LOADING_PATTERN.matcher(bwtStartException.getMessage());
                                             if(bwtStartException.getMessage().contains("Wallet file not specified")) {
-                                                throw new ServerException("Bitcoin Core requires Multi-Wallet to be enabled in the Server Preferences");
-                                            } else if(bwtStartException.getMessage().contains("Upgrade Bitcoin Core to v24 or later for Taproot wallet support")) {
+                                                throw new ServerException("Fujicoin Core requires Multi-Wallet to be enabled in the Server Preferences");
+                                            } else if(bwtStartException.getMessage().contains("Upgrade Fujicoin Core to v24 or later for Taproot wallet support")) {
                                                 throw new ServerException(bwtStartException.getMessage());
                                             } else if(bwtStartException.getMessage().contains("Wallet file verification failed. Refusing to load database.")) {
-                                                throw new ServerException("Bitcoin Core wallet file verification failed. Try restarting Bitcoin Core.");
+                                                throw new ServerException("Fujicoin Core wallet file verification failed. Try restarting Fujicoin Core.");
                                             } else if(bwtStartException.getMessage().contains("This error could be caused by pruning or data corruption")) {
-                                                throw new ServerException("Scanning failed. Bitcoin Core is pruned to a date after the wallet birthday.");
+                                                throw new ServerException("Scanning failed. Fujicoin Core is pruned to a date after the wallet birthday.");
                                             } else if(walletLoadingMatcher.matches() && walletLoadingMatcher.group(1) != null) {
                                                 throw new ServerException(walletLoadingMatcher.group(1));
                                             }
                                         }
 
-                                        throw new ServerException("Check if Bitcoin Core is running, and the authentication details are correct.");
+                                        throw new ServerException("Check if Fujicoin Core is running, and the authentication details are correct.");
                                     }
                                 } catch(InterruptedException ex) {
                                     Thread.currentThread().interrupt();
