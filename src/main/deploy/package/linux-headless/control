@@ -1,9 +1,9 @@
-Package: sparrow
+Package: fuji-sparrow
 Version: 2.0.0-1
 Section: utils
 Maintainer: Craig Raw <mail@sparrowwallet.com>
 Priority: optional
 Architecture: amd64
-Provides: sparrow
-Description: Sparrow
+Provides: fuji-sparrow
+Description: Fuji-Sparrow
 Depends: libc6, zlib1g

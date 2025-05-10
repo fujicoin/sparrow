@@ -1,11 +1,11 @@
 [Desktop Entry]
-Name=Sparrow
-Comment=Sparrow
-Exec=/opt/sparrow/bin/Sparrow %U
-Icon=/opt/sparrow/lib/Sparrow.png
+Name=Fuji-Sparrow
+Comment=Fuji-Sparrow
+Exec=/opt/fuji-sparrow/bin/Fuji-Sparrow %U
+Icon=/opt/fuji-sparrow/lib/Fuji-Sparrow.png
 Terminal=false
 Type=Application
-Categories=Finance;Network;
+Categories=Fuji-Sparrow;
 MimeType=application/psbt;application/bitcoin-transaction;application/pgp-signature;x-scheme-handler/bitcoin;x-scheme-handler/auth47;x-scheme-handler/lightning
-StartupWMClass=Sparrow
+StartupWMClass=Fuji-Sparrow
 SingleMainWindow=true
